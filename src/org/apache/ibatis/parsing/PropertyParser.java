@@ -28,7 +28,7 @@ public class PropertyParser {
 
   public static String parse(String string, Properties variables) {
     VariableTokenHandler handler = new VariableTokenHandler(variables);
-    GenericTokenParser parser = new GenericTokenParser("${", "}", handler);
+    GenericTokenParser parser = new GenericTokenParser("${", "}", handler);// 创建
     return parser.parse(string);
   }
 
