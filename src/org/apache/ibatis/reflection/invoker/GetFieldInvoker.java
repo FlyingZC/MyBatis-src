@@ -18,7 +18,7 @@ package org.apache.ibatis.reflection.invoker;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
-/**
+/** 封装Field对象
  * @author Clinton Begin
  */
 public class GetFieldInvoker implements Invoker {

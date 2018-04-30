@@ -33,7 +33,7 @@ public class PropertyParser {
   }
 
   private static class VariableTokenHandler implements TokenHandler {
-    private Properties variables;
+    private Properties variables;// <properties>节点下定义的键值对,用于替换占位符
 
     public VariableTokenHandler(Properties variables) {
       this.variables = variables;
