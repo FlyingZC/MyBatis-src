@@ -34,9 +34,9 @@ public class TypeParameterResolver {
    * @return The field type as {@link Type}. If it has type parameters in the declaration,<br>
    *         they will be resolved to the actual runtime {@link Type}s.
    */
-  public static Type resolveFieldType(Field field, Type srcType) {
-    Type fieldType = field.getGenericType();
-    Class<?> declaringClass = field.getDeclaringClass();
+  public static Type resolveFieldType(Field field, Type srcType) {// srcType为在哪个类中开始进行搜索,此处为org.apache.ibatis.zc.test.SubClassA<java.lang.Long>
+    Type fieldType = field.getGenericType();// 获取字段的声明类型,如java.util.Map<K, V>
+    Class<?> declaringClass = field.getDeclaringClass();// 获取字段定义 所在的类的Class对象.如class org.apache.ibatis.zc.test.ClassA
     return resolveType(fieldType, srcType, declaringClass);
   }
 
@@ -92,13 +92,13 @@ public class TypeParameterResolver {
       return new GenericArrayTypeImpl(resolvedComponentType);
     }
   }
-
+  /**解析参数化类型.第1个参数:带解析的ParameterizedType类型,第2个参数:解析操作的起始类型.第3个参数:定义该字段或方法的类的Class对象*/
   private static ParameterizedType resolveParameterizedType(ParameterizedType parameterizedType, Type srcType, Class<?> declaringClass) {
-    Class<?> rawType = (Class<?>) parameterizedType.getRawType();
-    Type[] typeArgs = parameterizedType.getActualTypeArguments();
+    Class<?> rawType = (Class<?>) parameterizedType.getRawType();// 原始类型.如interface java.util.Map
+    Type[] typeArgs = parameterizedType.getActualTypeArguments();// 参数化类型数组,如[K, V]
     Type[] args = new Type[typeArgs.length];
-    for (int i = 0; i < typeArgs.length; i++) {
-      if (typeArgs[i] instanceof TypeVariable) {
+    for (int i = 0; i < typeArgs.length; i++) {// 解析参数化类型数组
+      if (typeArgs[i] instanceof TypeVariable) {// K,V 均是类型变量.走这里
         args[i] = resolveTypeVar((TypeVariable<?>) typeArgs[i], srcType, declaringClass);
       } else if (typeArgs[i] instanceof ParameterizedType) {
         args[i] = resolveParameterizedType((ParameterizedType) typeArgs[i], srcType, declaringClass);
@@ -140,7 +140,7 @@ public class TypeParameterResolver {
       clazz = (Class<?>) srcType;
     } else if (srcType instanceof ParameterizedType) {
       ParameterizedType parameterizedType = (ParameterizedType) srcType;
-      clazz = (Class<?>) parameterizedType.getRawType();
+      clazz = (Class<?>) parameterizedType.getRawType();// class org.apache.ibatis.zc.test.SubClassA
     } else {
       throw new IllegalArgumentException("The 2nd arg must be Class or ParameterizedType, but was: " + srcType.getClass());
     }
@@ -148,9 +148,9 @@ public class TypeParameterResolver {
     if (clazz == declaringClass) {
       return Object.class;
     }
-
+    // 获取 声明的父类型.即ClassA<T,T>对应的ParameterizedType对象
     Type superclass = clazz.getGenericSuperclass();
-    result = scanSuperTypes(typeVar, srcType, declaringClass, clazz, superclass);
+    result = scanSuperTypes(typeVar, srcType, declaringClass, clazz, superclass);// 扫描父类进行后续解析,这里是递归入口
     if (result != null) {
       return result;
     }
@@ -164,15 +164,15 @@ public class TypeParameterResolver {
     }
     return Object.class;
   }
-
+  /**递归整个继承结构并完成类型变量的解析*/
   private static Type scanSuperTypes(TypeVariable<?> typeVar, Type srcType, Class<?> declaringClass, Class<?> clazz, Type superclass) {
     Type result = null;
     if (superclass instanceof ParameterizedType) {
       ParameterizedType parentAsType = (ParameterizedType) superclass;
       Class<?> parentAsClass = (Class<?>) parentAsType.getRawType();
       if (declaringClass == parentAsClass) {
-        Type[] typeArgs = parentAsType.getActualTypeArguments();
-        TypeVariable<?>[] declaredTypeVars = declaringClass.getTypeParameters();
+        Type[] typeArgs = parentAsType.getActualTypeArguments();// org.apache.ibatis.zc.test.ClassA<T, T>中的<T, T>
+        TypeVariable<?>[] declaredTypeVars = declaringClass.getTypeParameters();// classA中定义的类型变量是<K,V>  class ClassA<K, V>
         for (int i = 0; i < declaredTypeVars.length; i++) {
           if (declaredTypeVars[i] == typeVar) {
             if (typeArgs[i] instanceof TypeVariable) {

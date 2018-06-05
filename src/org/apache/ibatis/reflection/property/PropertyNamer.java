@@ -19,7 +19,7 @@ import java.util.Locale;
 
 import org.apache.ibatis.reflection.ReflectionException;
 
-/**
+/** 完成方法名 到 属性名的转换,以及多种检测操作
  * @author Clinton Begin
  */
 public final class PropertyNamer {

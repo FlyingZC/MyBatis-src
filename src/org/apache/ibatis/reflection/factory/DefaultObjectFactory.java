@@ -30,7 +30,7 @@ import java.util.TreeSet;
 
 import org.apache.ibatis.reflection.ReflectionException;
 
-/**
+/** ObjectFactory的默认实现.它是一个反射工厂,其create()通过instantiateClass()方法实现.
  * @author Clinton Begin
  */
 public class DefaultObjectFactory implements ObjectFactory, Serializable {
@@ -58,13 +58,13 @@ public class DefaultObjectFactory implements ObjectFactory, Serializable {
   <T> T instantiateClass(Class<T> type, List<Class<?>> constructorArgTypes, List<Object> constructorArgs) {
     try {
       Constructor<T> constructor;
-      if (constructorArgTypes == null || constructorArgs == null) {
+      if (constructorArgTypes == null || constructorArgs == null) {// 通过无参构造器创建爱你对象
         constructor = type.getDeclaredConstructor();
         if (!constructor.isAccessible()) {
           constructor.setAccessible(true);
         }
         return constructor.newInstance();
-      }
+      }// 根据指定参数 查找构造器,并创建对象
       constructor = type.getDeclaredConstructor(constructorArgTypes.toArray(new Class[constructorArgTypes.size()]));
       if (!constructor.isAccessible()) {
         constructor.setAccessible(true);

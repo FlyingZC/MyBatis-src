@@ -17,20 +17,20 @@ package org.apache.ibatis.reflection.property;
 
 import java.util.Iterator;
 
-/**
+/**解析类似于orders[0].items[0].name,该类继承Iterator接口,可迭代处理嵌套多春风表达式
  * @author Clinton Begin
  */
 public class PropertyTokenizer implements Iterable<PropertyTokenizer>, Iterator<PropertyTokenizer> {
-  private String name;
-  private String indexedName;
-  private String index;
-  private String children;
+  private String name;// 当前表达式名称
+  private String indexedName;// 当前表达式索引名
+  private String index;// 索引下标
+  private String children;// 子表达式
 
   public PropertyTokenizer(String fullname) {
-    int delim = fullname.indexOf('.');
+    int delim = fullname.indexOf('.');// 查找.位置
     if (delim > -1) {
-      name = fullname.substring(0, delim);
-      children = fullname.substring(delim + 1);
+      name = fullname.substring(0, delim);// 初始化name
+      children = fullname.substring(delim + 1);//初始化children
     } else {
       name = fullname;
       children = null;
@@ -63,7 +63,7 @@ public class PropertyTokenizer implements Iterable<PropertyTokenizer>, Iterator<
   public boolean hasNext() {
     return children != null;
   }
-
+  /**创建新的PropertyTokenizer对象并解析children字段记录的子表达式*/
   @Override
   public PropertyTokenizer next() {
     return new PropertyTokenizer(children);
