@@ -1,0 +1,499 @@
+抽取接口与类的关系：D:\myworkspace\workspace0-myopen\MyBatis-src
+发现了362个java源文件要分析。
+null
+共计有143个根节点，有42个有子节点，有101个没有子节点
+1 Arg
+
+2 CacheNamespace
+
+3 CacheNamespaceRef
+
+4 Case
+
+5 ConstructorArgs
+
+6 Delete
+
+7 DeleteProvider
+
+8 Flush
+
+9 Insert
+
+10 InsertProvider
+
+11 Lang
+
+12 Many
+
+13 MapKey
+
+14 Mapper
+
+15 One
+
+16 Options
+
+17 Param
+
+18 Result
+
+19 ResultMap
+
+20 Results
+
+21 ResultType
+
+22 Select
+
+23 SelectKey
+
+24 SelectProvider
+
+25 TypeDiscriminator
+
+26 Update
+
+27 UpdateProvider
+
+28 MapperMethod
+
+29 InvocationHandler
+--29.1 MapperProxy
+--29.2 PooledConnection
+--29.3 ConnectionLogger
+--29.4 PreparedStatementLogger
+--29.5 ResultSetLogger
+--29.6 StatementLogger
+--29.7 Plugin
+
+30 Serializable
+--30.1 MapperProxy
+--30.2 CacheKey
+----30.2.1 NullCacheKey
+--30.3 DefaultObjectFactory
+
+31 MapperProxyFactory
+
+32 MapperRegistry
+
+33 MapperAnnotationBuilder
+
+34 MethodResolver
+
+35 BaseBuilder
+--35.1 MapperBuilderAssistant
+--35.2 SqlSourceBuilder
+--35.3 XMLConfigBuilder
+--35.4 XMLMapperBuilder
+--35.5 XMLStatementBuilder
+--35.6 XMLScriptBuilder
+
+36 CacheRefResolver
+
+37 HashMap
+--37.1 ParameterExpression
+
+38 ResultMapResolver
+
+39 XMLIncludeTransformer
+
+40 EntityResolver
+--40.1 XMLMapperEntityResolver
+
+41 Cache
+--41.1 BlockingCache
+--41.2 FifoCache
+--41.3 LoggingCache
+--41.4 LruCache
+--41.5 ScheduledCache
+--41.6 SerializedCache
+--41.7 SoftCache
+--41.8 SynchronizedCache
+--41.9 TransactionalCache
+--41.10 WeakCache
+--41.11 PerpetualCache
+
+42 Cloneable
+--42.1 CacheKey
+----42.1.1 NullCacheKey
+
+43 TransactionalCacheManager
+
+44 Closeable
+--44.1 Cursor
+----44.1.1 DefaultCursor
+--44.2 SqlSession
+----44.2.1 DefaultSqlSession
+----44.2.2 SqlSessionManager
+
+45 Iterable
+--45.1 Cursor
+----45.1.1 DefaultCursor
+--45.2 PropertyTokenizer
+
+46 DataSourceFactory
+--46.1 JndiDataSourceFactory
+--46.2 UnpooledDataSourceFactory
+----46.2.1 PooledDataSourceFactory
+
+47 DataSource
+--47.1 PooledDataSource
+--47.2 UnpooledDataSource
+
+48 PoolState
+
+49 ExceptionFactory
+
+50 RuntimeException
+--50.1 IbatisException
+----50.1.1 PersistenceException
+------50.1.1.1 BindingException
+------50.1.1.2 BuilderException
+--------50.1.1.2.1 IncompleteElementException
+------50.1.1.3 CacheException
+------50.1.1.4 DataSourceException
+------50.1.1.5 TooManyResultsException
+------50.1.1.6 ExecutorException
+--------50.1.1.6.1 BatchExecutorException
+------50.1.1.7 ResultMapException
+------50.1.1.8 LogException
+------50.1.1.9 ParsingException
+------50.1.1.10 PluginException
+------50.1.1.11 ReflectionException
+------50.1.1.12 ScriptingException
+------50.1.1.13 SqlSessionException
+------50.1.1.14 TransactionException
+------50.1.1.15 TypeException
+--50.2 RuntimeSqlException
+
+51 BatchResult
+
+52 ErrorContext
+
+53 Executor
+--53.1 BaseExecutor
+----53.1.1 BatchExecutor
+----53.1.2 ReuseExecutor
+----53.1.3 SimpleExecutor
+--53.2 CachingExecutor
+
+54 KeyGenerator
+--54.1 Jdbc3KeyGenerator
+--54.2 NoKeyGenerator
+--54.3 SelectKeyGenerator
+
+55 AbstractEnhancedDeserializationProxy
+
+56 Externalizable
+--56.1 AbstractSerialStateHolder
+----56.1.1 CglibSerialStateHolder
+----56.1.2 JavassistSerialStateHolder
+
+57 ProxyFactory
+--57.1 CglibProxyFactory
+----57.1.1 CglibProxyFactory
+--57.2 JavassistProxyFactory
+----57.2.1 JavassistProxyFactory
+
+58 ResultLoader
+
+59 ResultLoaderMap
+
+60 WriteReplaceInterface
+
+61 ParameterHandler
+--61.1 DefaultParameterHandler
+
+62 ResultExtractor
+
+63 ResultSetHandler
+--63.1 DefaultResultSetHandler
+
+64 ResultSetWrapper
+
+65 StatementHandler
+--65.1 BaseStatementHandler
+----65.1.1 CallableStatementHandler
+----65.1.2 PreparedStatementHandler
+----65.1.3 SimpleStatementHandler
+--65.2 RoutingStatementHandler
+
+66 StatementUtil
+
+67 ClassLoaderWrapper
+
+68 ExternalResources
+
+69 ResolverUtil
+
+70 Resources
+
+71 VFS
+--71.1 DefaultVFS
+--71.2 JBoss6VFS
+
+72 AbstractSQL
+--72.1 SQL
+
+73 ScriptRunner
+
+74 SelectBuilder
+
+75 SqlBuilder
+
+76 SqlRunner
+
+77 BaseJdbcLogger
+--77.1 ConnectionLogger
+--77.2 PreparedStatementLogger
+--77.3 ResultSetLogger
+--77.4 StatementLogger
+
+78 Log
+--78.1 JakartaCommonsLoggingImpl
+--78.2 Jdk14LoggingImpl
+--78.3 Log4jImpl
+--78.4 Log4j2AbstractLoggerImpl
+--78.5 Log4j2Impl
+--78.6 Log4j2LoggerImpl
+--78.7 NoLoggingImpl
+--78.8 Slf4jImpl
+--78.9 Slf4jLocationAwareLoggerImpl
+--78.10 Slf4jLoggerImpl
+--78.11 StdOutImpl
+
+79 LogFactory
+
+80 BoundSql
+
+81 CacheBuilder
+
+82 DatabaseIdProvider
+--82.1 VendorDatabaseIdProvider
+----82.1.1 DefaultDatabaseIdProvider
+
+83 Discriminator
+
+84 Environment
+
+85 MappedStatement
+
+86 ParameterMap
+
+87 ParameterMapping
+
+88 ResultMap
+
+89 ResultMapping
+
+90 SqlSource
+--90.1 ProviderSqlSource
+--90.2 StaticSqlSource
+--90.3 RawSqlSource
+--90.4 DynamicSqlSource
+
+91 GenericTokenParser
+
+92 PropertyParser
+
+93 TokenHandler
+
+94 XNode
+
+95 XPathParser
+
+96 Interceptor
+
+97 InterceptorChain
+
+98 Intercepts
+
+99 Invocation
+
+100 Signature
+
+101 ExceptionUtil
+
+102 ObjectFactory
+--102.1 DefaultObjectFactory
+
+103 Invoker
+--103.1 GetFieldInvoker
+--103.2 MethodInvoker
+--103.3 SetFieldInvoker
+
+104 MetaClass
+
+105 MetaObject
+
+106 ParamNameResolver
+
+107 PropertyCopier
+
+108 PropertyNamer
+
+109 Iterator
+--109.1 PropertyTokenizer
+
+110 Reflector
+
+111 ReflectorFactory
+--111.1 DefaultReflectorFactory
+
+112 SystemMetaObject
+
+113 TypeParameterResolver
+
+114 ObjectWrapper
+--114.1 BaseWrapper
+----114.1.1 BeanWrapper
+----114.1.2 MapWrapper
+--114.2 CollectionWrapper
+
+115 ObjectWrapperFactory
+--115.1 DefaultObjectWrapperFactory
+
+116 LanguageDriver
+--116.1 XMLLanguageDriver
+----116.1.1 RawLanguageDriver
+
+117 LanguageDriverRegistry
+
+118 DynamicContext
+
+119 ExpressionEvaluator
+
+120 OgnlCache
+
+121 ClassResolver
+--121.1 OgnlClassResolver
+
+122 SqlNode
+--122.1 ChooseSqlNode
+--122.2 ForEachSqlNode
+--122.3 IfSqlNode
+--122.4 MixedSqlNode
+--122.5 TrimSqlNode
+----122.5.1 SetSqlNode
+----122.5.2 WhereSqlNode
+--122.6 StaticTextSqlNode
+--122.7 TextSqlNode
+--122.8 VarDeclSqlNode
+
+123 Configuration
+
+124 ResultContext
+--124.1 DefaultResultContext
+
+125 ResultHandler
+--125.1 DefaultMapResultHandler
+--125.2 DefaultResultHandler
+
+126 RowBounds
+
+127 SqlSessionFactory
+--127.1 DefaultSqlSessionFactory
+--127.2 SqlSessionManager
+
+128 SqlSessionFactoryBuilder
+
+129 Transaction
+--129.1 JdbcTransaction
+--129.2 ManagedTransaction
+
+130 TransactionFactory
+--130.1 JdbcTransactionFactory
+--130.2 ManagedTransactionFactory
+
+131 Alias
+
+132 ByteArrayUtils
+
+133 MappedJdbcTypes
+
+134 MappedTypes
+
+135 SimpleTypeRegistry
+
+136 TypeAliasRegistry
+
+137 TypeHandler
+--137.1 BaseTypeHandler
+----137.1.1 ArrayTypeHandler
+----137.1.2 BigDecimalTypeHandler
+----137.1.3 BigIntegerTypeHandler
+----137.1.4 BlobByteObjectArrayTypeHandler
+----137.1.5 BlobInputStreamTypeHandler
+----137.1.6 BlobTypeHandler
+----137.1.7 BooleanTypeHandler
+----137.1.8 ByteArrayTypeHandler
+----137.1.9 ByteObjectArrayTypeHandler
+----137.1.10 ByteTypeHandler
+----137.1.11 CharacterTypeHandler
+----137.1.12 ClobReaderTypeHandler
+----137.1.13 ClobTypeHandler
+----137.1.14 DateOnlyTypeHandler
+----137.1.15 DateTypeHandler
+----137.1.16 DoubleTypeHandler
+----137.1.17 EnumOrdinalTypeHandler
+----137.1.18 EnumTypeHandler
+----137.1.19 FloatTypeHandler
+----137.1.20 IntegerTypeHandler
+----137.1.21 LongTypeHandler
+----137.1.22 NClobTypeHandler
+----137.1.23 NStringTypeHandler
+----137.1.24 ObjectTypeHandler
+----137.1.25 ShortTypeHandler
+----137.1.26 SqlDateTypeHandler
+----137.1.27 SqlTimestampTypeHandler
+----137.1.28 SqlTimeTypeHandler
+----137.1.29 StringTypeHandler
+----137.1.30 TimeOnlyTypeHandler
+----137.1.31 UnknownTypeHandler
+
+138 TypeHandlerRegistry
+
+139 TypeReference
+--139.1 BaseTypeHandler
+----139.1.1 ArrayTypeHandler
+----139.1.2 BigDecimalTypeHandler
+----139.1.3 BigIntegerTypeHandler
+----139.1.4 BlobByteObjectArrayTypeHandler
+----139.1.5 BlobInputStreamTypeHandler
+----139.1.6 BlobTypeHandler
+----139.1.7 BooleanTypeHandler
+----139.1.8 ByteArrayTypeHandler
+----139.1.9 ByteObjectArrayTypeHandler
+----139.1.10 ByteTypeHandler
+----139.1.11 CharacterTypeHandler
+----139.1.12 ClobReaderTypeHandler
+----139.1.13 ClobTypeHandler
+----139.1.14 DateOnlyTypeHandler
+----139.1.15 DateTypeHandler
+----139.1.16 DoubleTypeHandler
+----139.1.17 EnumOrdinalTypeHandler
+----139.1.18 EnumTypeHandler
+----139.1.19 FloatTypeHandler
+----139.1.20 IntegerTypeHandler
+----139.1.21 LongTypeHandler
+----139.1.22 NClobTypeHandler
+----139.1.23 NStringTypeHandler
+----139.1.24 ObjectTypeHandler
+----139.1.25 ShortTypeHandler
+----139.1.26 SqlDateTypeHandler
+----139.1.27 SqlTimestampTypeHandler
+----139.1.28 SqlTimeTypeHandler
+----139.1.29 StringTypeHandler
+----139.1.30 TimeOnlyTypeHandler
+----139.1.31 UnknownTypeHandler
+
+140 ClassA
+--140.1 SubClassA
+
+141 T03Type
+
+142 T04ObjectFactory
+
+143 T05MetaClass
+
