@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import org.apache.ibatis.executor.result.ResultMapException;
 import org.apache.ibatis.session.Configuration;
 
-/**
+/** 实现TypeHandler的基类
  * @author Clinton Begin
  * @author Simone Tripodi
  */
@@ -37,7 +37,7 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
 
   @Override
   public void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException {
-    if (parameter == null) {
+    if (parameter == null) {// 参数为null
       if (jdbcType == null) {
         throw new TypeException("JDBC requires that the JdbcType must be specified for all nullable parameters.");
       }
@@ -49,7 +49,7 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
                 "Cause: " + e, e);
       }
     } else {
-      try {
+      try {// 抽象方法,交由子类实现.设置非null参数
         setNonNullParameter(ps, i, parameter, jdbcType);
       } catch (Exception e) {
         throw new TypeException("Error setting non null for parameter #" + i + " with JdbcType " + jdbcType + " . " +
@@ -77,12 +77,12 @@ public abstract class BaseTypeHandler<T> extends TypeReference<T> implements Typ
   @Override
   public T getResult(ResultSet rs, int columnIndex) throws SQLException {
     T result;
-    try {
+    try {// 抽象方法,由子类实现
       result = getNullableResult(rs, columnIndex);
     } catch (Exception e) {
       throw new ResultMapException("Error attempting to get column #" + columnIndex+ " from result set.  Cause: " + e, e);
     }
-    if (rs.wasNull()) {
+    if (rs.wasNull()) {// 对空值的处理
       return null;
     } else {
       return result;

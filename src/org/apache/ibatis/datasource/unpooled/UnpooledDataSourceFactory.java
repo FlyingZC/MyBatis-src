@@ -24,7 +24,7 @@ import org.apache.ibatis.datasource.DataSourceFactory;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 
-/**
+/** 具体工厂类,提供dataSource
  * @author Clinton Begin
  */
 public class UnpooledDataSourceFactory implements DataSourceFactory {
@@ -35,7 +35,7 @@ public class UnpooledDataSourceFactory implements DataSourceFactory {
   protected DataSource dataSource;
 
   public UnpooledDataSourceFactory() {
-    this.dataSource = new UnpooledDataSource();
+    this.dataSource = new UnpooledDataSource();// 直接创建dataSource
   }
 
   @Override

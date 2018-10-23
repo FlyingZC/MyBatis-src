@@ -22,9 +22,9 @@ import javax.sql.DataSource;
  * @author Clinton Begin
  */
 public interface DataSourceFactory {
-
+  /**设置dataSoruce的相关属性*/  
   void setProperties(Properties props);
-
+  /**获取dataSource*/
   DataSource getDataSource();
 
 }

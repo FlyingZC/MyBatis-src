@@ -33,16 +33,16 @@ import java.util.Set;
 import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.io.Resources;
 
-/**
+/** MyBatis初始化过程中,会为所有已知的TypeHandler创建对象,并实现注册到TypeHandlerRegistry中,由TypeHandlerRegistry负责管理这些TypeHandler对象
  * @author Clinton Begin
  */
 public final class TypeHandlerRegistry {
-
+  /**记录JdbcType与TypeHandler之间的对应关系,其中JdbcType是一个枚举类型,它定义对应的JDBC类型.该集合用于从结果集读取数据时,将数据从Jdbc类型转换成Java类型*/  
   private final Map<JdbcType, TypeHandler<?>> JDBC_TYPE_HANDLER_MAP = new EnumMap<JdbcType, TypeHandler<?>>(JdbcType.class);
-  private final Map<Type, Map<JdbcType, TypeHandler<?>>> TYPE_HANDLER_MAP = new HashMap<Type, Map<JdbcType, TypeHandler<?>>>();
-  private final TypeHandler<Object> UNKNOWN_TYPE_HANDLER = new UnknownTypeHandler(this);
-  private final Map<Class<?>, TypeHandler<?>> ALL_TYPE_HANDLERS_MAP = new HashMap<Class<?>, TypeHandler<?>>();
-
+  private final Map<Type, Map<JdbcType, TypeHandler<?>>> TYPE_HANDLER_MAP = new HashMap<Type, Map<JdbcType, TypeHandler<?>>>();// 记录了java类型向 指定JdbcType转换时,需要使用的TypeHandler对象.如:java类型中的string可能转换成数据库中的char,varchar等多种类型.所以存在一对多关系
+  private final TypeHandler<Object> UNKNOWN_TYPE_HANDLER = new UnknownTypeHandler(this); 
+  private final Map<Class<?>, TypeHandler<?>> ALL_TYPE_HANDLERS_MAP = new HashMap<Class<?>, TypeHandler<?>>();// 记录了全部TypeHandler的类型以及该类型相应的TypeHandler对象
+  /**调用register()为很多基础类型注册对象的TypeHandler对象*/
   public TypeHandlerRegistry() {
     register(Boolean.class, new BooleanTypeHandler());
     register(boolean.class, new BooleanTypeHandler());
@@ -74,7 +74,7 @@ public final class TypeHandlerRegistry {
 
     register(Reader.class, new ClobReaderTypeHandler());
     register(String.class, new StringTypeHandler());
-    register(String.class, JdbcType.CHAR, new StringTypeHandler());
+    register(String.class, JdbcType.CHAR, new StringTypeHandler());// String与诸多数据库类型的映射
     register(String.class, JdbcType.CLOB, new ClobTypeHandler());
     register(String.class, JdbcType.VARCHAR, new StringTypeHandler());
     register(String.class, JdbcType.LONGVARCHAR, new ClobTypeHandler());
@@ -239,10 +239,10 @@ public final class TypeHandlerRegistry {
   @SuppressWarnings("unchecked")
   public <T> void register(TypeHandler<T> typeHandler) {
     boolean mappedTypeFound = false;
-    MappedTypes mappedTypes = typeHandler.getClass().getAnnotation(MappedTypes.class);
-    if (mappedTypes != null) {
+    MappedTypes mappedTypes = typeHandler.getClass().getAnnotation(MappedTypes.class);// 获取@MappedTypes注解
+    if (mappedTypes != null) {// 根据@MappedTypes注解中指定的java类型进行注册
       for (Class<?> handledType : mappedTypes.value()) {
-        register(handledType, typeHandler);
+        register(handledType, typeHandler);// 经过强转 以及使用反射创建TypeHandler对象后,继续处理
         mappedTypeFound = true;
       }
     }
@@ -268,7 +268,7 @@ public final class TypeHandlerRegistry {
   }
 
   private <T> void register(Type javaType, TypeHandler<? extends T> typeHandler) {
-    MappedJdbcTypes mappedJdbcTypes = typeHandler.getClass().getAnnotation(MappedJdbcTypes.class);
+    MappedJdbcTypes mappedJdbcTypes = typeHandler.getClass().getAnnotation(MappedJdbcTypes.class);// 获取@MappedTypes注解,默认为null
     if (mappedJdbcTypes != null) {
       for (JdbcType handledJdbcType : mappedJdbcTypes.value()) {
         register(javaType, handledJdbcType, typeHandler);
@@ -277,7 +277,7 @@ public final class TypeHandlerRegistry {
         register(javaType, null, typeHandler);
       }
     } else {
-      register(javaType, null, typeHandler);
+      register(javaType, null, typeHandler);// 第一次走这
     }
   }
 
@@ -292,15 +292,15 @@ public final class TypeHandlerRegistry {
   }
 
   private void register(Type javaType, JdbcType jdbcType, TypeHandler<?> handler) {
-    if (javaType != null) {
-      Map<JdbcType, TypeHandler<?>> map = TYPE_HANDLER_MAP.get(javaType);
-      if (map == null) {
+    if (javaType != null) {// 是否明确指定了TypeHandler能够处理的Java类型
+      Map<JdbcType, TypeHandler<?>> map = TYPE_HANDLER_MAP.get(javaType);// 获取Java类型 在map中对应的TypeHandler集合
+      if (map == null) {// 创建新的TypeHandler集合,并添加到TYPE_HANDLER_MAP
         map = new HashMap<JdbcType, TypeHandler<?>>();
         TYPE_HANDLER_MAP.put(javaType, map);
       }
-      map.put(jdbcType, handler);
+      map.put(jdbcType, handler);// 将TypeHandler对象注册到TYPE_HANDLER_MAP中
     }
-    ALL_TYPE_HANDLERS_MAP.put(handler.getClass(), handler);
+    ALL_TYPE_HANDLERS_MAP.put(handler.getClass(), handler);// 向ALL_TYPE_HANDLERS_MAP中注册TypeHandler类型 和对应的TypeHandler对象
   }
 
   //

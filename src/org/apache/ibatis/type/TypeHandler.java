@@ -20,17 +20,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
+/** 类型转换器根接口
  * @author Clinton Begin
  */
 public interface TypeHandler<T> {
-
+  /**在通过PreparedStatement为SQL语句绑定参数时,会将数据 由JdbcType类型 转换成Java类型*/  
   void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType) throws SQLException;
-
+  /**从ResultSet中取数据时会调用此方法,将数据由Java类型转为JdbcType类型*/
   T getResult(ResultSet rs, String columnName) throws SQLException;
-
+  /**重载.从ResultSet中取数据时会调用此方法,将数据由Java类型转为JdbcType类型*/
   T getResult(ResultSet rs, int columnIndex) throws SQLException;
-
+  /**重载.从ResultSet中取数据时会调用此方法,将数据由Java类型转为JdbcType类型*/
   T getResult(CallableStatement cs, int columnIndex) throws SQLException;
 
 }
